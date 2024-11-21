@@ -4,7 +4,7 @@ import Link from 'next/link';
 
 export function Navbar() {
   return (
-    <nav className="bg-white shadow-md">
+    <nav className="bg-white shadow-md opacity-100 sticky top-0 z-50">
       <div className="container mx-auto flex justify-between items-center p-4">
         <Link href="/" className="text-2xl font-bold">
           FolioCraft
