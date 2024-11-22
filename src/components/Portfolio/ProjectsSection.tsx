@@ -1,7 +1,7 @@
 // src/components/Portfolio/ProjectsSection.tsx
 import { useDispatch, useSelector } from 'react-redux';
 import { RootState, AppDispatch } from '@/redux/store';
-import { addProject, removeProject } from '@/redux/slices/PortfolioSlice';
+import { addProject, removeProject } from '@/redux/slices/portfolioSlice';
 import { useState } from 'react';
 import { Input } from '@/components/ui/input';
 import {  Textarea } from '@/components/ui/textarea';

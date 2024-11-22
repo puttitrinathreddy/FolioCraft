@@ -1,7 +1,7 @@
 import { Button } from '@/components/ui/button';
 import { Card } from '@/components/ui/card';
-import { Navbar } from '@/components/Navbar';
-import { Hero } from '@/components/Hero';
+import { Navbar } from '@/components/LandingPage/Navbar';
+import { Hero } from '@/components/LandingPage/Hero';
 import Link from 'next/link';
 
 export default function LandingPage() {

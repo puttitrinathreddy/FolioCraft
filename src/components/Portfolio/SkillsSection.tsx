@@ -1,7 +1,7 @@
 // src/components/Portfolio/SkillsSection.tsx
 import { useDispatch, useSelector } from 'react-redux';
 import { RootState, AppDispatch } from '@/redux/store';
-import { addSkill, removeSkill } from '@/redux/slices/PortfolioSlice';
+import { addSkill, removeSkill } from '@/redux/slices/portfolioSlice';
 import { useState } from 'react';
 import { Input } from '@/components/ui/input';
 

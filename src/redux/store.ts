@@ -1,10 +1,9 @@
 // src/redux/store.ts
 import { configureStore } from '@reduxjs/toolkit';
 import userReducer from './slices/userSlice';  
-import portfolioReducer from "./slices/PortfolioSlice";
-import themeReducer from "./slices/ThemeSlice";
-import layoutReducer from "./slices/LayoutSlice";
-
+import portfolioReducer from "./slices/portfolioSlice";
+import themeReducer from "./slices/themeSlice";
+import layoutReducer from "./slices/layoutSlice";
 const store = configureStore({
   reducer: {
     user: userReducer,
