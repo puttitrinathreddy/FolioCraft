@@ -34,7 +34,7 @@ const LayoutSelector: React.FC = () => {
   const selectedLayout = useSelector((state: RootState) => state.layout.selectedLayout);
   const savedLayouts = useSelector((state: RootState) => state.layout.savedLayouts);
 
-  const handleSelectLayout = (layout: Layout) => {
+  const handleSelectLayout = (layout: any) => {
     dispatch(setLayout(layout));  // Set the selected layout
   };
 
