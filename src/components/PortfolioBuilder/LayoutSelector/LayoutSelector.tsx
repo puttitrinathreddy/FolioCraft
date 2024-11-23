@@ -1,7 +1,8 @@
 
 import React from "react";
+import { useRouter } from 'next/router';
 import { useDispatch, useSelector } from "react-redux";
-import { setLayout, saveLayout } from "@/redux/slices/layoutSlice";
+import { setSelectedLayout,saveLayout } from "@/redux/slices/layoutSlice";
 import { RootState } from "@/redux/store";
 import { deleteLayout,  } from "@/redux/slices/layoutSlice";
 import ModernSidebar from "./layouts/ModernSidebar";
@@ -30,12 +31,15 @@ const layouts = [
 ];
 
 const LayoutSelector: React.FC = () => {
+  const router = useRouter();
   const dispatch = useDispatch();
   const selectedLayout = useSelector((state: RootState) => state.layout.selectedLayout);
   const savedLayouts = useSelector((state: RootState) => state.layout.savedLayouts);
 
   const handleSelectLayout = (layout: any) => {
-    dispatch(setLayout(layout));  // Set the selected layout
+    console.log('Selecting layout:', layout)
+    dispatch(setSelectedLayout(layout)); 
+    router.push('/portfolioBuilder/customize'); 
   };
 
   const handleSaveLayout = () => {

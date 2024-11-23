@@ -21,7 +21,7 @@ const layoutSlice = createSlice({
   name: "layout",
   initialState,
   reducers: {
-    setLayout: (state, action: PayloadAction<Layout>) => {
+    setSelectedLayout: (state, action: PayloadAction<Layout>) => {
       state.selectedLayout = action.payload;
     },
     saveLayout: (state, action: PayloadAction<Layout>) => {
@@ -40,6 +40,6 @@ const layoutSlice = createSlice({
   },
 });
 
-export const { setLayout, saveLayout, deleteLayout } = layoutSlice.actions;
+export const { setSelectedLayout, saveLayout, deleteLayout } = layoutSlice.actions;
 
 export default layoutSlice.reducer;
