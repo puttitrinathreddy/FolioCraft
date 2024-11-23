@@ -1,10 +1,15 @@
 import { Button } from '@/components/ui/button';
 import { Card } from '@/components/ui/card';
-import { Navbar } from '@/components/Navbar';
-import { Hero } from '@/components/Hero';
+import { Navbar } from '@/components/LandingPage/Navbar';
+import { Hero } from '@/components/LandingPage/Hero';
 import Link from 'next/link';
+import { Header } from '@/components/Shared/Header';
+import { useRouter } from "next/router";
+
 
 export default function LandingPage() {
+  const router = useRouter(); 
+  const { pathname } = router;
   return (
     <div>
       {/* Navbar */}
@@ -14,7 +19,7 @@ export default function LandingPage() {
           top: 0,
           left: 0,
           width: "100%",
-          height: "150px", // Adjust based on design
+          height: "160px",
           backgroundColor: "transparent",
           backgroundImage:
             "radial-gradient(transparent 1px, var(--token-f32baa44-90b8-42a5-8bca-ffba9d95b23a, #ffffff) 1px)",
@@ -22,11 +27,11 @@ export default function LandingPage() {
           WebkitMask: "linear-gradient(rgba(0, 0, 0, 1) 60%, rgba(0, 0, 0, 0) 100%)",
           mask: "linear-gradient(rgba(0, 0, 0, 1) 60%, rgba(0, 0, 0, 0) 100%)",
           backdropFilter: "blur(3px)",
-          zIndex: 1, // Ensure it's behind other content
+          zIndex: 1, 
         }}
       ></div>
 
-      <Navbar />
+      ?<Navbar /> : <Header/>
 
       {/* Hero Section */}
       <Hero />

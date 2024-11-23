@@ -1,7 +1,7 @@
 // src/components/Portfolio/PersonalInfoForm.tsx
 import { useDispatch, useSelector } from 'react-redux';
 import { RootState, AppDispatch } from '@/redux/store';
-import { setPersonalInfo } from '@/redux/slices/PortfolioSlice';
+import { setPersonalInfo } from '@/redux/slices/portfolioSlice';
 import { useFormik } from 'formik';
 import { Input } from '@/components/ui/input';
 import { Textarea } from '@/components/ui/textarea';
