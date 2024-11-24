@@ -1,83 +1,70 @@
-// pages/auth/login.tsx
-'use client';
+import React from "react";
+import { Formik, Form, Field, ErrorMessage } from "formik";
+import * as Yup from "yup";
 
-import { useState } from 'react';
-import { Button } from '@/components/ui/button';
-import { Input } from '@/components/ui/input';
-import { Label } from '@/components/ui/label';
-import { useFormik } from 'formik';
-import axios from 'axios';
-import { useDispatch } from 'react-redux';
-import { setUser } from '@/redux/slices/userSlice';
+const Login: React.FC = () => {
+  const initialValues = { email: "", password: "" };
 
-export default function Login() {
-  const dispatch = useDispatch();
-  const [error, setError] = useState<string | null>(null);
-
-  const formik = useFormik({
-    initialValues: {
-      email: '',
-      password: '',
-    },
-    validate: (values) => {
-      const errors: { [key: string]: string } = {};
-      if (!values.email) {
-        errors.email = 'Email is required';
-      }
-      if (!values.password) {
-        errors.password = 'Password is required';
-      }
-      return errors;
-    },
-    onSubmit: async (values) => {
-      try {
-        const response = await axios.post('/api/auth/login', {
-          email: values.email,
-          password: values.password,
-        });
-        dispatch(setUser(response.data.user));  // Storing user info in Redux
-        // Redirect user to the dashboard or portfolio builder page
-      } catch (err) {
-        setError('Invalid email or password.');
-      }
-    },
+  const validationSchema = Yup.object({
+    email: Yup.string().email("Invalid email address").required("Required"),
+    password: Yup.string().required("Required"),
   });
 
+  const handleSubmit = (values: typeof initialValues) => {
+    console.log("Login values:", values);
+  };
+
   return (
-    <div className="container mx-auto p-8">
-      <h2 className="text-3xl font-bold text-center mb-8">Login to Your Account</h2>
-      {error && <div className="text-red-500 mb-4">{error}</div>}
-      <form onSubmit={formik.handleSubmit} className="max-w-md mx-auto">
-        <div className="mb-4">
-          <Label htmlFor="email">Email</Label>
-          <Input
-            id="email"
-            name="email"
-            type="email"
-            onChange={formik.handleChange}
-            value={formik.values.email}
-          />
-          {formik.errors.email && formik.touched.email && (
-            <div className="text-red-500 text-sm">{formik.errors.email}</div>
-          )}
-        </div>
-        <div className="mb-4">
-          <Label htmlFor="password">Password</Label>
-          <Input
-            id="password"
-            name="password"
-            type="password"
-            onChange={formik.handleChange}
-            value={formik.values.password}
-          />
-          {formik.errors.password && formik.touched.password && (
-            <div className="text-red-500 text-sm">{formik.errors.password}</div>
-          )}
-        </div>
-        <Button type="submit" variant="default" size="lg" className="w-full">
-          Log In
-        </Button>
-      </form>
+    <div className="flex justify-center items-center min-h-screen bg-gray-50">
+      <div className="w-full max-w-md bg-white p-8 shadow-lg rounded-lg">
+        <h1 className="text-2xl font-bold mb-4">Login</h1>
+        <Formik
+          initialValues={initialValues}
+          validationSchema={validationSchema}
+          onSubmit={handleSubmit}
+        >
+          <Form>
+            <div className="mb-4">
+              <label htmlFor="email" className="block text-sm font-medium">
+                Email
+              </label>
+              <Field
+                name="email"
+                type="email"
+                className="mt-1 block w-full p-2 border rounded-lg"
+              />
+              <ErrorMessage
+                name="email"
+                component="div"
+                className="text-red-500 text-sm mt-1"
+              />
+            </div>
+            <div className="mb-4">
+              <label htmlFor="password" className="block text-sm font-medium">
+                Password
+              </label>
+              <Field
+                name="password"
+                type="password"
+                className="mt-1 block w-full p-2 border rounded-lg"
+              />
+              <ErrorMessage
+                name="password"
+                component="div"
+                className="text-red-500 text-sm mt-1"
+              />
+            </div>
+            <button
+              type="submit"
+              className="w-full bg-blue-600 text-white py-2 rounded-lg hover:bg-blue-700"
+            >
+              Login
+            </button>
+          </Form>
+        </Formik>
+      </div>
     </div>
   );
-}
+};
+
+export default Login;

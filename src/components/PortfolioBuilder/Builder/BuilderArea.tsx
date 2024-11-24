@@ -7,7 +7,6 @@ import AboutSection from './components/AboutSection';
 import SkillsSection from './components/SkillsSection';
 import { motion } from 'framer-motion';
 
-
 const componentMap = {
   header: HeaderSection,
   about: AboutSection,

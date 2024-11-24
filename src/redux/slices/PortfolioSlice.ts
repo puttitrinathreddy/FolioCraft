@@ -6,6 +6,11 @@ interface HeaderInfo {
   subtitle: string;
   description: string;
 }
+interface ContactInfo {
+  email: string;
+  phone: string;
+  message: string;
+}
 
 interface Project {
   id: string;
@@ -30,8 +35,6 @@ interface PortfolioState {
     name: string;
     bio: string;
     location: string;
-    email?: string;
-    phone?: string;
     socialLinks?: {
       github?: string;
       linkedin?: string;
@@ -39,6 +42,7 @@ interface PortfolioState {
       portfolio?: string;
     };
   };
+  contactInfo: ContactInfo;
   skills: Skill[];
   projects: Project[];
 }
@@ -53,14 +57,17 @@ const initialState: PortfolioState = {
     name: '',
     bio: '',
     location: '',
-    email: '',
-    phone: '',
     socialLinks: {
       github: '',
       linkedin: '',
       twitter: '',
       portfolio: '',
     },
+  },
+  contactInfo: {
+    email: '',
+    phone: '',
+    message: '',
   },
   skills: [],
   projects: [],
@@ -73,6 +80,12 @@ const portfolioSlice = createSlice({
     setHeaderInfo: (state, action: PayloadAction<Partial<HeaderInfo>>) => {
       state.headerInfo = {
         ...state.headerInfo,
+        ...action.payload,
+      };
+    },
+    setContactInfo: (state, action: PayloadAction<Partial<ContactInfo>>) => {
+      state.contactInfo = {
+        ...state.contactInfo,
         ...action.payload,
       };
     },
@@ -133,6 +146,7 @@ const portfolioSlice = createSlice({
 export const {
   setHeaderInfo,
   setPersonalInfo,
+  setContactInfo,
   addSkill,
   updateSkill,
   removeSkill,

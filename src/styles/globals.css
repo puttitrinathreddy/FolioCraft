@@ -4,6 +4,12 @@
  
 @layer base {
   :root {
+      --primary-color: #FF5733;
+  --secondary-color: #33FF57;
+  --background-color: #f1f1f1;
+  --text-color: #333333;
+  --accent-color: #FFD700;
+  --font-family: 'Roboto', sans-serif;
     --background: 0 0% 100%;
     --foreground: 222.2 84% 4.9%;
 
@@ -33,6 +39,21 @@
     --ring: 222.2 84% 4.9%;
  
     --radius: 0.5rem;
+  }
+  .light {
+    --primary-color: #ffffff;
+    --secondary-color: #000000;
+    /* Add other light theme variables */
+  }
+  .dark {
+    --primary-color: #333333;
+    --secondary-color: #f5f5f5;
+    /* Add other dark theme variables */
+  }
+  .custom {
+    --primary-color: #ff5733;
+    --secondary-color: #c70039;
+    /* Add other custom theme variables */
   }
  
   .dark {
@@ -76,15 +97,19 @@
 }
 
 .react-grid-item.react-grid-placeholder {
-  @apply bg-blue-200 opacity-50;
+  @apply bg-blue-100 border-2 border-blue-300 border-dashed rounded-lg;
 }
 
-.react-grid-item > .react-resizable-handle {
-  @apply bg-gray-400;
+.react-resizable-handle {
+  @apply opacity-0 transition-opacity duration-200;
 }
 
-.react-grid-item:hover > .react-resizable-handle {
-  @apply bg-blue-500;
+.react-grid-item:hover .react-resizable-handle {
+  @apply opacity-100;
+}
+
+.drag-handle {
+  @apply transition-colors duration-200;
 }
 
 .drag-handle:hover {

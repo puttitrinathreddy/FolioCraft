@@ -12,7 +12,8 @@ export const ComponentLibrary = () => {
   return (
     <div className="p-4 bg-white border-r border-gray-200">
       <h2 className="text-lg font-semibold mb-4">Components</h2>
-      <div className="space-y-2">
+      <div className=" space-y-2 relative w-full h-screen bg-gray-100 grid grid-cols-12 gap-2">
+
         {AVAILABLE_COMPONENTS.map((component) => (
           <DraggableComponent key={component.id} {...component} />
         ))}

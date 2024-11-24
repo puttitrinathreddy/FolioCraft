@@ -5,6 +5,8 @@ import portfolioReducer from "./slices/portfolioSlice";
 import themeReducer from "./slices/themeSlice";
 import layoutReducer from "./slices/layoutSlice";
 import builderReducer from './slices/builderSlice';
+import customizationReducer from './slices/customizationSlice';
+
 
 const store = configureStore({
   reducer: {
@@ -13,6 +15,7 @@ const store = configureStore({
     theme: themeReducer,
     layout: layoutReducer,
     builder: builderReducer,
+    customization: customizationReducer,
   },
 });
 

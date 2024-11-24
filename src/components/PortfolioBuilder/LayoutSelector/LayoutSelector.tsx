@@ -1,10 +1,8 @@
-
 import React from "react";
-import { useRouter } from 'next/router';
+import { useRouter } from "next/router";
 import { useDispatch, useSelector } from "react-redux";
-import { setSelectedLayout,saveLayout } from "@/redux/slices/layoutSlice";
+import { setSelectedLayout, saveLayout, deleteLayout } from "@/redux/slices/layoutSlice";
 import { RootState } from "@/redux/store";
-import { deleteLayout,  } from "@/redux/slices/layoutSlice";
 import ModernSidebar from "./layouts/ModernSidebar";
 import MinimalHeader from "./layouts/MinimalHeader";
 import PortfolioGrid from "./layouts/PortfolioGrid";
@@ -37,33 +35,39 @@ const LayoutSelector: React.FC = () => {
   const savedLayouts = useSelector((state: RootState) => state.layout.savedLayouts);
 
   const handleSelectLayout = (layout: any) => {
-    console.log('Selecting layout:', layout)
-    dispatch(setSelectedLayout(layout)); 
-    router.push('/portfolioBuilder/customize'); 
+    dispatch(setSelectedLayout(layout));
+    // router.push("/portfolioBuilder/customize");
   };
 
   const handleSaveLayout = () => {
     if (selectedLayout) {
-      dispatch(saveLayout(selectedLayout));  // Save the selected layout
+      dispatch(saveLayout(selectedLayout));
+    } else {
+      alert("Please select a layout before saving."); // Add a fallback alert
     }
   };
 
   const handleDeleteLayout = (id: number) => {
-    dispatch(deleteLayout(id));  // Delete the saved layout
+    if (confirm("Are you sure you want to delete this layout?")) {
+      dispatch(deleteLayout(id));
+    }
   };
 
   const SelectedComponent =
-    selectedLayout?.component ?? null;
+    layouts.find((layout) => layout.id === selectedLayout?.id)?.component ?? null;
 
   return (
-    <div>
-      <h1 className="text-2xl font-bold mb-4">Select a Layout</h1>
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 mb-8">
+    <div className="container mx-auto p-8">
+      <h1 className="text-3xl font-bold mb-6">Select a Layout</h1>
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 mb-6">
         {layouts.map((layout) => (
           <div
             key={layout.id}
             onClick={() => handleSelectLayout(layout)}
             className="p-4 bg-gray-100 shadow rounded-lg cursor-pointer hover:bg-gray-200"
+            role="button"
+            tabIndex={0}
+            aria-label={`Select ${layout.name} layout`}
           >
             {layout.name}
           </div>
@@ -77,42 +81,45 @@ const LayoutSelector: React.FC = () => {
         Save Layout
       </button>
 
-      <div className="bg-white shadow p-8 rounded-lg">
+      <div className="bg-white shadow p-6 rounded-lg">
         {SelectedComponent ? (
           <>
-            <h2 className="text-xl font-semibold mb-4">Preview: {selectedLayout.name}</h2>
+            <h2 className="text-xl font-semibold mb-4">Preview: {selectedLayout?.name}</h2>
             <SelectedComponent />
           </>
         ) : (
-          <p>Select a layout to preview it</p>
+          <p className="text-gray-600">Select a layout to preview it.</p>
         )}
       </div>
 
       <div className="mt-8">
-        <h2 className="text-xl font-semibold mb-4">Saved Layouts</h2>
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
-          {savedLayouts.map((layout) => (
-            <div key={layout.id} className="p-4 bg-gray-100 shadow rounded-lg">
-              <h3 className="font-semibold">{layout.name}</h3>
-              <button
-                onClick={() => handleSelectLayout(layout)}
-                className="text-blue-600 hover:underline mt-2 block"
-              >
-                Select Layout
-              </button>
-              <button
-                onClick={() => handleDeleteLayout(layout.id)}
-                className="text-red-600 hover:underline mt-2 block"
-              >
-                Delete Layout
-              </button>
-            </div>
-          ))}
-        </div>
+        <h2 className="text-2xl font-semibold mb-4">Saved Layouts</h2>
+        {savedLayouts.length > 0 ? (
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+            {savedLayouts.map((layout) => (
+              <div key={layout.id} className="p-4 bg-gray-100 shadow rounded-lg">
+                <h3 className="font-semibold">{layout.name}</h3>
+                <button
+                  onClick={() => handleSelectLayout(layout)}
+                  className="text-blue-600 hover:underline mt-2 block"
+                >
+                  Select Layout
+                </button>
+                <button
+                  onClick={() => handleDeleteLayout(layout.id)}
+                  className="text-red-600 hover:underline mt-2 block"
+                >
+                  Delete Layout
+                </button>
+              </div>
+            ))}
+          </div>
+        ) : (
+          <p className="text-gray-600">No saved layouts yet. Save a layout to see it here.</p>
+        )}
       </div>
     </div>
   );
 };
 
 export default LayoutSelector;
-

@@ -1,14 +1,21 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 
+enum FontSize {
+  Small = 'small',
+  Medium = 'medium',
+  Large = 'large',
+}
+
 interface CustomTheme {
   primaryColor: string;
   secondaryColor: string;
   backgroundColor: string;
   textColor: string;
+  accentColor: string;
   fontFamily: string;
-  fontSize: 'small' | 'medium' | 'large';
-  // Add more theme properties as needed
+  fontSize: FontSize;
 }
+
 
 interface ThemeState {
   currentTheme: 'light' | 'dark' | 'custom';
@@ -22,8 +29,9 @@ const initialState: ThemeState = {
     secondaryColor: '#5856D6',
     backgroundColor: '#FFFFFF',
     textColor: '#000000',
+    accentColor: '#FF4081', // Default accent color
     fontFamily: 'inter',
-    fontSize: 'medium',
+    fontSize: FontSize.Medium,
   },
 };
 

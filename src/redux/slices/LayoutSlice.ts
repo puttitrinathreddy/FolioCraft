@@ -29,9 +29,11 @@ const layoutSlice = createSlice({
         (layout) => layout.id === action.payload.id
       );
       if (!layoutExists) {
+        // Generate unique ID if required
         state.savedLayouts.push(action.payload);
       }
     },
+    
     deleteLayout: (state, action: PayloadAction<number>) => {
       state.savedLayouts = state.savedLayouts.filter(
         (layout) => layout.id !== action.payload
